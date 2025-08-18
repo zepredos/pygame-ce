@@ -454,17 +454,10 @@ tobytes_surf_32bpp(SDL_Surface *surf, SDL_PixelFormat *format_details,
 {
     int w, h;
 
-#if SDL_VERSION_ATLEAST(3, 0, 0)
-    Uint32 Rloss = format_details->Rbits;
-    Uint32 Gloss = format_details->Gbits;
-    Uint32 Bloss = format_details->Bbits;
-    Uint32 Aloss = format_details->Abits;
-#else
-    Uint32 Rloss = format_details->Rloss;
-    Uint32 Gloss = format_details->Gloss;
-    Uint32 Bloss = format_details->Bloss;
-    Uint32 Aloss = format_details->Aloss;
-#endif
+    Uint32 Rloss = PG_FORMAT_R_LOSS(format_details);
+    Uint32 Gloss = PG_FORMAT_G_LOSS(format_details);
+    Uint32 Bloss = PG_FORMAT_B_LOSS(format_details);
+    Uint32 Aloss = PG_FORMAT_A_LOSS(format_details);
     Uint32 Rmask = format_details->Rmask;
     Uint32 Gmask = format_details->Gmask;
     Uint32 Bmask = format_details->Bmask;
@@ -566,18 +559,14 @@ image_tobytes(PyObject *self, PyObject *arg, PyObject *kwarg)
         return RAISE(pgExc_SDLError, SDL_GetError());
     }
     SDL_Palette *surf_palette = PG_GetSurfacePalette(surf);
-    Rloss = format_details->Rbits;
-    Gloss = format_details->Gbits;
-    Bloss = format_details->Bbits;
-    Aloss = format_details->Abits;
 #else
     SDL_PixelFormat *format_details = surf->format;
     SDL_Palette *surf_palette = surf->format->palette;
-    Rloss = format_details->Rloss;
-    Gloss = format_details->Gloss;
-    Bloss = format_details->Bloss;
-    Aloss = format_details->Aloss;
 #endif
+    Rloss = PG_FORMAT_R_LOSS(format_details);
+    Gloss = PG_FORMAT_G_LOSS(format_details);
+    Bloss = PG_FORMAT_B_LOSS(format_details);
+    Aloss = PG_FORMAT_A_LOSS(format_details);
     Rmask = format_details->Rmask;
     Gmask = format_details->Gmask;
     Bmask = format_details->Bmask;
