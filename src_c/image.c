@@ -565,7 +565,7 @@ image_tobytes(PyObject *self, PyObject *arg, PyObject *kwarg)
     if (!format_details) {
         return RAISE(pgExc_SDLError, SDL_GetError());
     }
-    SDL_Palette *surf_palette = SDL_GetSurfacePalette(surf);
+    SDL_Palette *surf_palette = PG_GetSurfacePalette(surf);
     Rloss = format_details->Rbits;
     Gloss = format_details->Gbits;
     Bloss = format_details->Bbits;
@@ -1722,7 +1722,7 @@ SaveTGA_RW(SDL_Surface *surface, SDL_RWops *out, int rle)
     }
     SDL_PixelFormat output_format;
 
-    SDL_Palette *surf_palette = SDL_GetSurfacePalette(surface);
+    SDL_Palette *surf_palette = PG_GetSurfacePalette(surface);
 #else
     SDL_PixelFormat *surf_format = surface->format;
     SDL_Palette *surf_palette = surface->format->palette;
