@@ -371,7 +371,7 @@ window_set_fullscreen(pgWindowObject *self, PyObject *args, PyObject *kwargs)
 static PyObject *
 window_focus(pgWindowObject *self, PyObject *args, PyObject *kwargs)
 {
-    SDL_bool input_only = SDL_FALSE;
+    int input_only = SDL_FALSE;
     char *kwids[] = {"input_only", NULL};
     if (!PyArg_ParseTupleAndKeywords(args, kwargs, "|p", kwids, &input_only)) {
         return NULL;
